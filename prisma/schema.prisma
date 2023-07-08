@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  username String
+  userHandle String @unique
+  userTweets String[] 
+  followerCount Int @default(0)
+  followingCount Int @default(0)
+  accountCreatedAt DateTime @default(now())
+  tweets Tweet[] @relation("UserTweets")
+  retweets Tweet[] @relation("UserRetweets")
+
+
+  followedBy    User[]   @relation("UserFollows", fields: [followedByIDs], references: [id])
+  followedByIDs String[] @db.ObjectId
+  following     User[]   @relation("UserFollows", fields: [followingIDs], references: [id])
+  followingIDs  String[] @db.ObjectId
+
+
+}
+
+model Tweet {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  content String
+  likes Int @default(0)
+  retweets Int @default(0)
+  replies Int @default(0)
+  createdAt DateTime @default(now())
+  authorId String @db.ObjectId
+  author User @relation("UserTweets", fields: [authorId], references: [id])
+  retweetId String @db.ObjectId
+  retweeter User @relation("UserRetweets", fields: [retweetId], references: [id])
+}
+
+
+
+
+
