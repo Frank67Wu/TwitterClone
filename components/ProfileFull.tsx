@@ -8,7 +8,7 @@ export function ProfileFull() {
     <div className={`flex flex-col ${height}`}>
         <div className={` absolute ${height} ${minWidth} bg-gray-300`}>
         </div>
-        <ProfilePicture className="w-24 h-24 top-24 left-6 border-4 border-white"/>
+        <ProfilePicture className="w-24 h-24 top-24 left-6 border-4 border-white bg-white"/>
         <div className="bg-black mt-24"></div>
         <h1 className="font-bold mt-2 ml-3">PlaceHolderName</h1>
         <h1 className="text-gray-400 text-sm ml-3">@PlaceHolder</h1>
