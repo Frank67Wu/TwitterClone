@@ -9,7 +9,7 @@ export function LikeButton({liked} : LikeButtonProps) {
 
     const [isLiked, useIsLiked] = useState(liked)
 
-    function onClick(){
+    function OnClick(){
         useIsLiked(!isLiked)
 
         console.log(isLiked)
@@ -17,7 +17,7 @@ export function LikeButton({liked} : LikeButtonProps) {
 
     return (
         <div className="flex w-24 group">
-            <button onClick={() => onClick()} className="rounded-full flex transition-colors hover:bg-gray-300 justify-center">
+            <button onClick={() => OnClick()} className="rounded-full flex transition-colors hover:bg-gray-300 justify-center">
                 <img className={`w-4 h-4 ${isLiked ? "opacity-0" : "opacity-100"} group-hover:opacity-0 align-center mx-2 mt-2 mb-1.5`}  src={"/images/notliked.png"}></img>
                 <img className={`w-4 h-4 ${isLiked ? "opacity-100" : "opacity-0"} group-hover:opacity-100 absolute align-center mx-2 mt-2 mb-1.5`}   src={"/images/liked.svg" }></img>
             </button>

@@ -34,7 +34,7 @@ export default function Home() {
 
         <WhoToFollow className="mt-2"/>
 
-        <WhatsHappening className={"mt-3"}trending={[<TrendingBox gray={true} />, <TrendingBox gray={true}/>, <TrendingBox gray={true}/>]}/>
+        <WhatsHappening className={"mt-3"}trending={[<TrendingBox key={1} gray={true} />, <TrendingBox key={2} gray={true}/>, <TrendingBox key={3} gray={true}/>]}/>
 
 
       </div>

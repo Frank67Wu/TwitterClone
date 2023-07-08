@@ -61,7 +61,7 @@ export default function Home() {
       <div className="fixed">
         <SearchBar width={"w-60"} className={"mt-1"} placeholderText="Search Twitter"/>
 
-        <WhatsHappening className={"mt-3"}trending={[<TrendingBox gray={true} />, <TrendingBox gray={true}/>, <TrendingBox gray={true}/>]}/>
+        <WhatsHappening className={"mt-3"}trending={[<TrendingBox key={1} gray={true} />, <TrendingBox key={2} gray={true}/>, <TrendingBox key={3} gray={true}/>]}/>
 
         <WhoToFollow className="mt-2"/>
 
