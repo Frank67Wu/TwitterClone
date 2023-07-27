@@ -37,7 +37,7 @@ export function ProfileFull() {
           </button>    
         </div>
 
-        <TweetBox textContent="Hello World"/>
+        <TweetBox username="Frank" userHandle="Frank" textContent="Hello World" createdAt="27m"/>
     </div>
     )
 }

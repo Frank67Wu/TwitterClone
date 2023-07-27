@@ -20,12 +20,11 @@ model User {
   followingCount Int @default(0)
   accountCreatedAt DateTime @default(now())
   tweets Tweet[] @relation("UserTweets")
-  retweets Tweet[] @relation("UserRetweets")
 
 
-  followedBy    User[]   @relation("UserFollows", fields: [followedByIDs], references: [id])
-  followedByIDs String[] @db.ObjectId
-  following     User[]   @relation("UserFollows", fields: [followingIDs], references: [id])
+  followers    User[]   @relation("UserFollows", fields: [followersIDs], references: [id])
+  followersIDs String[] @db.ObjectId
+  following    User[]   @relation("UserFollows", fields: [followingIDs], references: [id])
   followingIDs  String[] @db.ObjectId
 
 
@@ -34,14 +33,9 @@ model User {
 model Tweet {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   content String
-  likes Int @default(0)
-  retweets Int @default(0)
-  replies Int @default(0)
   createdAt DateTime @default(now())
   authorId String @db.ObjectId
-  author User @relation("UserTweets", fields: [authorId], references: [id])
-  retweetId String @db.ObjectId
-  retweeter User @relation("UserRetweets", fields: [retweetId], references: [id])
+  author User @relation("UserTweets", fields: [authorId], references: [id], onDelete: Cascade)
 }
 
 
