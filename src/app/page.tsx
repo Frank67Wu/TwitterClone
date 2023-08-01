@@ -20,42 +20,54 @@ interface TweetData {
 
 export default function Home() {
 
+  const userid = "64c1d576d82b2586470b6233"
   const [currentPage, setCurrentPage] = useState(1)
   const [tweetInfo, setTweetInfo] = useState<TweetData[]>([])
 
   const [loadedTweets, setLoadedTweets] = useState<React.FC[]>([])
   const [loading, setLoading] = useState(false)
+  const [forYou, setForYou] = useState(true)
 
   const handleScroll = () => {
-    console.log(2)
+
     if (window.innerHeight + Math.round(document.documentElement.scrollTop) + 10 < document.documentElement.offsetHeight || loading) {
-      console.log(window.innerHeight, document.documentElement.offsetHeight)
       return;
     }
-    console.log(3)
+
     GrabTweets();
   };
 
   useEffect(() => {
     GrabTweets()
-  }, [])
+  }, [forYou])
 
   useEffect(() => {
-    console.log(1)
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [loading]);
 
+  function Switch(current : string) {
+    if ((current === "ForYou" && forYou) || current === "Following" && !forYou) {
+      return
+    }
+
+    setForYou(!forYou)
+    setTweetInfo(() => [])
+    setLoadedTweets(() => [])
+    setCurrentPage(() => 1)    
+  }
+
   async function GrabTweets() {
+
+    const url = forYou ? `http://localhost:3000/api/tweets?page=${currentPage}&limit=6` : `http://localhost:3000/api/users/${userid}/following/tweets?page=${currentPage}&limit=6`
 
     setLoading(true)
 
-    const response = await fetch(`http://localhost:3000/api/tweets?page=${currentPage}&limit=6`, {
+    const response = await fetch(url, {
         method: "GET",
     });
 
     const data = await response.json()
-    console.log(data)
 
     for (const tweet of data) {
       const userResponse = await fetch(`http://localhost:3000/api/users/${tweet.authorId}`, {
@@ -81,34 +93,29 @@ export default function Home() {
   return (
     <div className = "flex container mx-auto items-start justify-center max-w-full overscroll-hidden overscroll-none">
 
-
     <div className="w-[176px] min-w-[176px] h-full bg-gray-300 z-40">
  
     <Navbar/>
 
     </div>
 
-  
-
-    <main className="flex-row min-h-screen border-x min-w[448px] max-w-[448px]" onScroll={() => console.log("hello")}>
+    <main className="flex-row min-h-screen border-x min-w[448px] max-w-[448px]">
       <div className="fixed w-[448px] max-w-[448px] bg-white bg-opacity-90 z-40 border-r">
 
           <h1 className="font-bold text-lg pl-2 pt-1 w-[448px] max-w-[448px] [bg-gray-300">Home</h1>
           <nav className="flex justify-around border-b mt-2  w-[448px] max-w-[448px] ">
-          <button className="flex justify-center hover:bg-gray-300 flex-grow">
-            <h1 className="font-bold pb-1 border-b-2 border-blue-400 text-sm pt-2 pb-3">For you</h1>
+          <button onClick={() => {Switch("ForYou")}} className="flex justify-center hover:bg-gray-300 flex-grow">
+            <h1 className={`font-bold pb-1 ${ forYou ? "border-b-2 border-blue-400" : ""}  text-sm pt-2 pb-3`}>For you</h1>
           </button>
-          <button  className="flex justify-center hover:bg-gray-300 flex-grow">
-            <h1 className="font-bold text-sm pt-2 pb-3" >Following</h1>
+          <button onClick={() => {Switch("Following")}}  className="flex justify-center hover:bg-gray-300 flex-grow">
+            <h1 className={`font-bold text-sm pt-2 pb-3 ${ forYou ? "" : "border-b-2 border-blue-400"} `}>Following</h1>
           </button>          
 
         </nav>
 
-
-
       </div>
   
-        <Tweet className="mt-20"/>
+        <Tweet className="mt-20"/>  
 
         <>
         {loadedTweets}
@@ -125,20 +132,7 @@ export default function Home() {
 </div>
 
     <div style={{height: "250px"}}></div>
-
-
-
-
-        
-
-
-        
-
-
-
-        
-
-
+ 
     </main>
 
     <div className="mx-4 w-72 min-w-72 h-screen z-40">
@@ -152,8 +146,6 @@ export default function Home() {
 
       </div>
     </div>
-
-    
 
     </div>
 
