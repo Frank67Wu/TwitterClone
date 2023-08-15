@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-
+import bcrypt from 'bcryptjs'
 
 const prisma = new PrismaClient();
 
@@ -8,13 +8,20 @@ export async function POST(req: NextRequest) {
 
     try {
 
-    //const json = await req.json()
-    
+    const json = await req.json()
+
+    bcrypt.hash(json.password, 10, function(err, hash) {
+        console.log(hash)
+    });
+
+    const password = bcrypt.hashSync(json.password, 10)
+
     const user = await prisma.user.create({
-        data: {
-          "username": "hello",
-          "userHandle": "Bob"
-        }
+      data: {
+        "username": json.username,
+        "userHandle": json.userHandle, 
+        "password" : password
+      }
     });
 
     return NextResponse.json(user, {
@@ -44,6 +51,8 @@ export async function GET(req: NextRequest) {
     });
 
   } catch (error: any) {
+
+      console.log(error)
 
       return NextResponse.json(
           { error: "Failed to find users" },

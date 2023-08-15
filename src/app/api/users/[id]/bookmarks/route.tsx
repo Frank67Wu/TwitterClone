@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { cookies } from "next/dist/client/components/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient
@@ -6,6 +7,8 @@ const prisma = new PrismaClient
 export async function GET(req : NextRequest, {params} : {params: {id : string}}) {
 
     try {
+
+      console.log(cookies().get('sid'))
 
         const id = params.id
 

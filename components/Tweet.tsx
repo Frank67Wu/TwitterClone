@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./Button";
 import { ProfilePicture } from "./ProfilePicture";
 import { cookies } from "next/dist/client/components/headers";
@@ -8,6 +8,7 @@ import ProgressBar from "./ProgressBar";
 
 type TweetProps = {
     className? : string
+    userId : string | null
 }
 
 export function Tweet({className} : TweetProps) {
@@ -16,13 +17,17 @@ export function Tweet({className} : TweetProps) {
 
     const [renderProgressBar, setRenderProgressBar] = useState(false)
 
-    async function OnClick(e: any) {
+    async function SendTweet(e: any) {
         e.preventDefault()
+        if (inputValue.length == 0 || inputValue.length > 256) {
+            return
+        }
+        console.log(localStorage.getItem('userid'))
         setRenderProgressBar(true)
         
         const data = {
                 content: inputValue, 
-                author: { connect: { id: "64b30cdd3bb658d99ba70762"} }}
+                author: { connect: { id: localStorage.getItem('userid')} }}
 
         const response = await fetch("http://localhost:3000/api/tweets", {
             method: "POST",
@@ -50,7 +55,7 @@ export function Tweet({className} : TweetProps) {
                 className="flex-grow resize-none overflow-hidden px-4 py-2 text-lg outline-none"
                 placeholder="What's happening?"/>
             </div>
-            <Button onClick={(e) => {OnClick(e)}} small={true} className="self-end font-bold">Tweet</Button>
+            <Button onClick={(e) => {SendTweet(e)}} small={true} className="self-end font-bold">Tweet</Button>
 
         </form>
     )

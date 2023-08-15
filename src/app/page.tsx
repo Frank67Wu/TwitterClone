@@ -20,13 +20,28 @@ interface TweetData {
 
 export default function Home() {
 
-  const userid = "64c1d576d82b2586470b6233"
+  const [userId, setUserId] = useState<string | null>("")
   const [currentPage, setCurrentPage] = useState(1)
   const [tweetInfo, setTweetInfo] = useState<TweetData[]>([])
-
+  const [inputValue, setInputValue] = useState("")
   const [loadedTweets, setLoadedTweets] = useState<React.FC[]>([])
   const [loading, setLoading] = useState(false)
   const [forYou, setForYou] = useState(true)
+  const [following, setFollowing] = useState<string[]>([])
+
+  function OnChange(val : any) {
+    setInputValue(val)
+  }
+
+  async function GrabUserInfo() {
+    const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
+      method: "GET",
+    })
+
+    const data = await response.json()
+
+    setFollowing(data.followingIDs)
+  }
 
   const handleScroll = () => {
 
@@ -38,11 +53,24 @@ export default function Home() {
   };
 
   useEffect(() => {
-    GrabTweets()
+    setUserId(localStorage.getItem("userId"))
+  },[])
+
+  useEffect(() => {
+    if (userId) {
+    GrabUserInfo()
+    }
   }, [forYou])
+
+  useEffect(()=>{
+    if (following) {
+    GrabTweets()
+    }
+  },[following])
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
+    console.log(window)
     return () => window.removeEventListener('scroll', handleScroll);
   }, [loading]);
 
@@ -59,7 +87,7 @@ export default function Home() {
 
   async function GrabTweets() {
 
-    const url = forYou ? `http://localhost:3000/api/tweets?page=${currentPage}&limit=6` : `http://localhost:3000/api/users/${userid}/following/tweets?page=${currentPage}&limit=6`
+    const url = forYou ? `http://localhost:3000/api/tweets?page=${currentPage}&limit=6` : `http://localhost:3000/api/users/${userId}/following/tweets?page=${currentPage}&limit=6`
 
     setLoading(true)
 
@@ -83,7 +111,7 @@ export default function Home() {
     setCurrentPage((currentPage) => currentPage + 1)
     setTweetInfo([...tweetInfo, ...data])    
 
-    const newTweets = data.map((t : any) => <TweetBox key={t.id} username={t.username} userHandle="ASDF" textContent={t.content} createdAt={t.createdAt}/>)
+    const newTweets = data.map((t : any) => <TweetBox key={t.id} username={t.username} userHandle={t.userHandle} data={t} selfId={userId} following={following.includes(t.authorId)}/>)
 
     setLoadedTweets([...loadedTweets, newTweets])
 
@@ -115,7 +143,7 @@ export default function Home() {
 
       </div>
   
-        <Tweet className="mt-20"/>  
+        <Tweet userId={userId} className="mt-20"/>
 
         <>
         {loadedTweets}
@@ -137,7 +165,7 @@ export default function Home() {
 
     <div className="mx-4 w-72 min-w-72 h-screen z-40">
       <div className="fixed">
-        <SearchBar width={"w-60"} className={"mt-1"} placeholderText="Search Twitter"/>
+        <SearchBar onChange={OnChange} inputValue={inputValue} width={"w-60"} className={"mt-1"} placeholderText="Search Twitter"/>
 
         <WhatsHappening className={"mt-3"}trending={[<TrendingBox key={1} gray={true} />, <TrendingBox key={2} gray={true}/>, <TrendingBox key={3} gray={true}/>]}/>
 

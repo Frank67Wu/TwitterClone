@@ -4,39 +4,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function DELETE(req: NextRequest, {params}: {params: {id: string}}) {
-
-    try {
-
-    console.log(params)
-
-    const id = params.id
-    
-    const deletedUser = await prisma.user.delete({
-        where: {id : id}
-    });
-
-    return NextResponse.json(deletedUser, {
-        status: 200,
-      });
-
-    } catch (error: any) {
-
-        return NextResponse.json(
-            { error: "Failed to delete user" },
-            {
-              status: 500,
-            }
-          );
-
-    }  
-}
-
 export async function GET(req: NextRequest, {params}: {params: {id: string}}) {
 
     try {
 
     const id = params.id
+
+    if (id.match(/^[0-9a-fA-F]{24}$/)) {
     
     const user = await prisma.user.findUnique({
         where: {id: id}
@@ -46,7 +20,30 @@ export async function GET(req: NextRequest, {params}: {params: {id: string}}) {
         status: 200,
       });
 
+    }
+
+    else {
+
+      const userhandle = await prisma.user.findUnique({
+        where : {userHandle : id}
+      })
+  
+      if (userhandle) {
+        return NextResponse.json(userhandle, {
+          status: 200,
+        });
+      }
+
+      else {
+        return NextResponse.json({},{
+          status: 404
+        })
+      }
+    }
+
     } catch (error: any) {
+
+      console.log(error)
 
         return NextResponse.json(
             { error: "Failed to find user" },

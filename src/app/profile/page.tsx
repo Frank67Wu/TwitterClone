@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useRef } from "react";
 import { Navbar } from "../../../components/Navbar";
 import { ProfileFull } from "../../../components/ProfileFull";
 import { SearchBar } from "../../../components/SearchBar";
@@ -10,8 +13,16 @@ import { WhoToFollow } from "../../../components/WhoToFollow";
 
 
 export default function Home() {
+
+  let ref = useRef(null)
+
+  useEffect(() => {
+    document.body.style.overflowY = "hidden"
+    console.log(document.body)
+  })
+  
   return (
-    <div className = "flex container mx-auto items-start justify-center max-w-full overflow-x-hidden">
+    <div ref={ref} className = "flex container mx-auto items-start justify-center max-w-full overflow-x-hidden">
 
 
     <div className="w-[176px] min-w-[176px] h-full bg-gray-300 z-40">
@@ -22,9 +33,11 @@ export default function Home() {
 
   
 
-    <main className="flex-row min-h-screen border-x min-w[448px] max-w-[448px]">
+    <main className="flex-row min-h-screen border-x min-w[448px] w-[448px]">
 
-      <ProfileFull/>
+      <ProfileFull func={() => {
+        return ref.current}}
+        />
     
     </main>
 

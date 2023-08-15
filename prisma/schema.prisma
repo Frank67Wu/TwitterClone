@@ -15,11 +15,13 @@ model User {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   username String
   userHandle String @unique
+  password String
   userTweets String[] 
   followerCount Int @default(0)
   followingCount Int @default(0)
   accountCreatedAt DateTime @default(now())
   tweets Tweet[] @relation("UserTweets")
+  sessions Session []
 
 
   followers    User[]   @relation("UserFollows", fields: [followersIDs], references: [id])
@@ -32,6 +34,13 @@ model User {
 
   bookmarkedTweetsId String[] @db.ObjectId
   bookmarkedTweets Tweet[] @relation("BookmarkedTweets", fields: [bookmarkedTweetsId], references: [id])
+
+  messagesSentId String[] @db.ObjectId
+  messagesSent Message[] @relation("Sender")
+
+  messagesReceivedId String[] @db.ObjectId
+  messagesReceived Message[] @relation("Receiver")
+  
 
 
 }
@@ -51,6 +60,25 @@ model Tweet {
 
 }
 
+model Message {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  senderId String @db.ObjectId
+  receiverId String @db.ObjectId
+
+  sender User @relation("Sender", fields: [senderId], references: [id])
+  receiver User @relation("Receiver", fields: [receiverId], references: [id])
+
+  content String
+  createdAt DateTime @default(now())
+}
+
+model Session {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String @unique
+  userId String @db.ObjectId
+  expires DateTime
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
 
 

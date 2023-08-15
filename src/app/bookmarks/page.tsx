@@ -21,17 +21,30 @@ interface TweetData {
 export default function Bookmarks() {
 
 
-  const userid = "64b30cdd3bb658d99ba70762"
+  const [userId, setUserId] = useState<string | null>("")
+  const [userHandle, setUserHandle] = useState<string | null>("")
   const [page, setPage] = useState(1)
   const [loadedTweets, setLoadedTweets] = useState<React.FC[]>([])
   const [tweetId, setTweetId] = useState<String[]>([])
   const [loading, setLoading] = useState(true)
+  const [inputValue, setInputValue] = useState("")
+  const [following, setFollowing] = useState<string[]>([])
 
+  function OnChange(val : any) {
+    setInputValue(val)
+  }
   
+  useEffect(() => {
+    setUserId(localStorage.getItem("userid"))
+    setUserHandle(localStorage.getItem("userHandle"))
+  },[])
 
   useEffect(() => {
+    if (userId) {
+    GrabUserInfo()
     GrabBookmarks()
-  }, [])
+    }
+  }, [userId])
 
   useEffect(() => {
     ShowTweets()
@@ -51,13 +64,21 @@ export default function Bookmarks() {
     ShowTweets();
   };
 
+  async function GrabUserInfo() {
+    const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
+      method: "GET",
+    })
 
+    const data = await response.json()
+
+    setFollowing(data.followingIDs)
+  }
 
   async function GrabBookmarks() {
 
-    const response = await fetch(`http://localhost:3000/api/users/${userid}/bookmarks`, {
+    const response = await fetch(`http://localhost:3000/api/users/${userId}/bookmarks`, {
       method: "GET",
-  })
+    })
 
     const data : String[] = await response.json()
 
@@ -70,9 +91,9 @@ export default function Bookmarks() {
 
     console.log(tweetId)
 
-
       if ((page - 1) * 6 >= tweetId.length) {
         console.log("no more")
+        setLoading(false)
         return 
       }
 
@@ -104,7 +125,7 @@ export default function Bookmarks() {
       data.push(tweetData)
     }
 
-    const newTweets : any = data.map((t : any) => <TweetBox key={t.id} username={t.username} userHandle={t.userHandle} textContent={t.content} createdAt={t.createdAt}/>)
+    const newTweets : any = data.map((t : any) => <TweetBox key={t.id} username={t.username} userHandle={t.userHandle} data={t} selfId={userId} following={following.includes(t.authorId)}/>)
 
     setLoadedTweets([...loadedTweets, newTweets])
 
@@ -127,7 +148,7 @@ export default function Bookmarks() {
       <div className="fixed w-[448px] max-w-[448px] bg-white bg-opacity-90 z-40 border-r border-b pb-2">
 
           <h1 className="font-bold text-lg pl-2 pt-1 w-[448px] max-w-[448px] [bg-gray-300">Bookmarks</h1>
-          <h1 className="pl-2 text-sm text-gray-400 -mt-1">@Placeholder</h1>
+          <h1 className="pl-2 text-sm text-gray-400 -mt-1">{`@${userHandle ? userHandle : "loading..."}`}</h1>
 
       </div>
 
@@ -149,7 +170,7 @@ export default function Bookmarks() {
 
     <div className="mx-4 w-72 min-w-72 h-screen z-40">
       <div className="fixed">
-        <SearchBar width={"w-60"} className={"mt-1"} placeholderText="Search Twitter"/>
+        <SearchBar onChange={OnChange} inputValue={inputValue} width={"w-60"} className={"mt-1"} placeholderText="Search Twitter"/>
 
         <WhatsHappening className={"mt-3"}trending={[<TrendingBox key={1} gray={true} />, <TrendingBox key={2} gray={true}/>, <TrendingBox key={3} gray={true}/>]}/>
 

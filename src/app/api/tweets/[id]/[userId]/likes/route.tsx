@@ -10,7 +10,31 @@ export async function PATCH(req : NextRequest, {params} : {params: {id : string,
         const id = params.id
         const userId = params.userId
 
-        const tweet = await prisma.tweet.update({
+        const tweet = await prisma.tweet.findFirst({
+            where : {id : id}
+        })
+
+        if (tweet?.likedById.includes(userId)) {
+
+            const tweet1 = await prisma.tweet.update({
+                where: {id : id},
+                data: { likedBy: {disconnect : {id: userId}}}
+            });
+    
+            const user = await prisma.user.update({
+                where: {id : userId},
+                data: { likedTweets: {disconnect : {id: id}}}
+            });
+
+            return NextResponse.json(tweet, {
+                status: 200,
+            });
+
+        }
+
+        else {
+
+        const tweet1 = await prisma.tweet.update({
             where: {id : id},
             data: { likedBy: {connect : {id: userId}}}
         });
@@ -23,6 +47,8 @@ export async function PATCH(req : NextRequest, {params} : {params: {id : string,
         return NextResponse.json(tweet, {
             status: 200,
           });
+
+        }
 
     } catch (error: any) {
 

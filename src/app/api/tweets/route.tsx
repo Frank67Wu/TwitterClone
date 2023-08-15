@@ -9,15 +9,34 @@ export async function POST(req : NextRequest) {
     try {
         const json = await req.json()
 
+        console.log(json.author.connect.id)
+
         const tweet = await prisma.tweet.create({
             data: json
         });
 
+        const user  = await prisma.user.findFirst({
+          where : { id : json.author.connect.id}
+        })
+
+        if (user) {
+          
+        const updateUser = await prisma.user.update({
+          where : {id : json.author.connect.id},
+          data : {userTweets : [...user.userTweets, tweet.id]}
+        })
+
         return NextResponse.json(tweet, {
             status: 200,
-          });
+        });
+
+        }
+
+        
 
     } catch (error: any) {
+
+        console.log(error)
 
         return NextResponse.json(
             { error: "Failed to create tweet" },
