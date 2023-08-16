@@ -13,7 +13,6 @@ export async function PATCH(req: NextRequest, {params}: {params: {id: string}}) 
         const id = params.id
 
         bcrypt.hash(json.password, 10, function(err, hash) {
-            console.log(hash)
         });
     
         const password = bcrypt.hashSync(json.password, 10)

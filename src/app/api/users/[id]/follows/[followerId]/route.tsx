@@ -7,9 +7,7 @@ const prisma = new PrismaClient();
 export async function PATCH(req: NextRequest, {params}: {params: {id: string, followerId: string}}) {
 
     try {
-
-    console.log(params)
-
+      
     const followedId = params.id
     const followerId = params.followerId
 

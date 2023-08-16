@@ -29,7 +29,7 @@ export default function Login() {
         var raw = JSON.stringify({
             "userId": userId
         });
-        const res = await fetch("http://localhost:3000/api/auth", {
+        const res = await fetch("/api/auth", {
             method: 'POST',
             headers: myHeaders,
             body: raw,
@@ -50,7 +50,7 @@ export default function Login() {
             "password": password
         })
 
-        const res = await fetch(`http://localhost:3000/api/auth/signin`, {
+        const res = await fetch(`/api/auth/signin`, {
             method: 'POST',
             headers: myHeaders,
             body: raw,

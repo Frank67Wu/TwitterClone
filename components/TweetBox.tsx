@@ -28,19 +28,20 @@ type TweetBoxProps = {
 export function TweetBox({data, className, username, userHandle, selfId, following} : TweetBoxProps) {
 
     async function updateLikes() {
-        const res = await fetch(`http://localhost:3000/api/${data.id}/${selfId}/likes`, {
+        const res = await fetch(`/api/tweets/${data.id}/${selfId}/likes`, {
             method: "PATCH"
         })
     }
 
     async function updateBookmarks() {
-        const res = await fetch(`http://localhost:3000/api/${data.id}/${selfId}/bookmarks`, {
+
+        const res = await fetch(`/api/tweets/${data.id}/${selfId}/bookmarks`, {
             method: "PATCH"
         })
     }
 
     async function updateFollowing() {
-        const res = await fetch(`http://localhost:3000/api/${data.id}/follows/${selfId}`, {
+        const res = await fetch(`/api/users/${data.id}/follows/${selfId}`, {
             method: "PATCH"
         })
     }

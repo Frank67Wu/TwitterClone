@@ -70,14 +70,14 @@ export function ProfileFull({func} : funcProp) {
 
   async function GetInfo() {
 
-    const userResponse = await fetch(`http://localhost:3000/api/users/${userId}`, {
+    const userResponse = await fetch(`/api/users/${userId}`, {
       method: "GET"
     }
     )
 
     const userData = await userResponse.json()
 
-    const tweetResponse = await fetch(`http://localhost:3000/api/users/${userId}/tweets`,
+    const tweetResponse = await fetch(`/api/users/${userId}/tweets`,
     {
       method: "GET"
     })
@@ -104,7 +104,7 @@ export function ProfileFull({func} : funcProp) {
       const upperBound = Math.min(page * 6, tweetInfo.length)
       
       for (let i = lowerBound ;  i < upperBound; i++) {
-      const tweetResponse = await fetch(`http://localhost:3000/api/tweets/${tweetInfo[i].id}`, {
+      const tweetResponse = await fetch(`/api/tweets/${tweetInfo[i].id}`, {
         method: "GET",
       })
 

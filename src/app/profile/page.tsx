@@ -1,12 +1,10 @@
 'use client'
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Navbar } from "../../../components/Navbar";
 import { ProfileFull } from "../../../components/ProfileFull";
 import { SearchBar } from "../../../components/SearchBar";
 import { TrendingBox } from "../../../components/TrendingBox";
-import { Tweet } from "../../../components/Tweet";
-import { TweetBox } from "../../../components/TweetBox";
 import { WhatsHappening } from "../../../components/WhatsHappening";
 import { WhoToFollow } from "../../../components/WhoToFollow";
 
@@ -14,11 +12,15 @@ import { WhoToFollow } from "../../../components/WhoToFollow";
 
 export default function Home() {
 
+  const [inputValue, setInputValue] = useState("")
   let ref = useRef(null)
+
+  function OnChange(val : any) {
+    setInputValue(val)
+  }
 
   useEffect(() => {
     document.body.style.overflowY = "hidden"
-    console.log(document.body)
   })
   
   return (
@@ -31,8 +33,6 @@ export default function Home() {
 
     </div>
 
-  
-
     <main className="flex-row min-h-screen border-x min-w[448px] w-[448px]">
 
       <ProfileFull func={() => {
@@ -43,7 +43,7 @@ export default function Home() {
 
     <div className="mx-4 w-72 min-w-72 h-screen z-40">
       <div className="fixed">
-        <SearchBar width={"w-60"} className={"mt-1"} placeholderText="Search Twitter"/>
+        <SearchBar inputValue={inputValue} onChange={onchange} width={"w-60"} className={"mt-1"} placeholderText="Search Twitter"/>
 
         <WhoToFollow className="mt-2"/>
 

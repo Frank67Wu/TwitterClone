@@ -8,8 +8,6 @@ export async function GET(req : NextRequest, {params} : {params: {id : string}})
 
     try {
 
-      console.log(cookies().get('sid'))
-
         const id = params.id
 
         const tweet = await prisma.user.findUnique({

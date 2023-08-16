@@ -11,7 +11,6 @@ export async function POST(req: NextRequest) {
     const json = await req.json()
 
     bcrypt.hash(json.password, 10, function(err, hash) {
-        console.log(hash)
     });
 
     const password = bcrypt.hashSync(json.password, 10)
@@ -30,7 +29,6 @@ export async function POST(req: NextRequest) {
 
     } catch (error: any) {
 
-        console.log(error)
         return NextResponse.json(
             { error: "Failed to create user" },
             {
@@ -51,8 +49,6 @@ export async function GET(req: NextRequest) {
     });
 
   } catch (error: any) {
-
-      console.log(error)
 
       return NextResponse.json(
           { error: "Failed to find users" },

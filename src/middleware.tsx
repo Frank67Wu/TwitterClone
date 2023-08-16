@@ -12,8 +12,6 @@ export async function middleware(request: NextRequest) {
         userId = request.url.split('users/')[1].split('/')[0]
     }
 
-    console.log(userId)
-
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     var raw = JSON.stringify({
@@ -30,7 +28,6 @@ export async function middleware(request: NextRequest) {
         return
     } 
 
-    console.log("allowed")
     const response = NextResponse.next()
 
     return response

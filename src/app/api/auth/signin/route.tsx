@@ -57,7 +57,6 @@ export async function POST(req: NextRequest) {
 
     } catch (error: any) {
 
-        console.log(error)
         return NextResponse.json(
             { error: "Failed to login" },
             {
@@ -86,8 +85,6 @@ export async function DELETE(req: NextRequest) {
       })
 
   } catch (error: any) {
-
-      console.log(error)
 
       return NextResponse.json(
           { error: "Failed to login" },

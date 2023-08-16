@@ -28,7 +28,7 @@ export default function Settings() {
     }
 
     async function deleteUser() {
-        const res = await fetch(`https://localhost:3000/users/${userId}/delete`, {
+        const res = await fetch(`/api/users/${userId}/delete`, {
             method : "DELETE"
         }) 
     }
@@ -42,7 +42,7 @@ export default function Settings() {
             "password": passwordValue
           });
 
-        const res = await fetch(`https://localhost:3000/users/${userId}/password`, {
+        const res = await fetch(`/api/users/${userId}/password`, {
             method: 'PATCH',
             headers: myHeaders,
             body: raw,

@@ -65,7 +65,7 @@ export default function Bookmarks() {
   };
 
   async function GrabUserInfo() {
-    const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
+    const response = await fetch(`/api/users/${userId}`, {
       method: "GET",
     })
 
@@ -76,7 +76,7 @@ export default function Bookmarks() {
 
   async function GrabBookmarks() {
 
-    const response = await fetch(`http://localhost:3000/api/users/${userId}/bookmarks`, {
+    const response = await fetch(`/api/users/${userId}/bookmarks`, {
       method: "GET",
     })
 
@@ -84,15 +84,11 @@ export default function Bookmarks() {
 
     setTweetId([...tweetId, ...data])
 
-    console.log(data)
   }
 
   async function ShowTweets() {
 
-    console.log(tweetId)
-
       if ((page - 1) * 6 >= tweetId.length) {
-        console.log("no more")
         setLoading(false)
         return 
       }
@@ -104,16 +100,14 @@ export default function Bookmarks() {
       const lowerBound = (page - 1) * 6
       const upperBound = Math.min(page * 6, tweetId.length)
 
-      console.log(lowerBound, upperBound)
-
       for (let i = lowerBound ;  i < upperBound; i++) {
-      const tweetResponse = await fetch(`http://localhost:3000/api/tweets/${tweetId[i]}`, {
+      const tweetResponse = await fetch(`/api/tweets/${tweetId[i]}`, {
         method: "GET",
       })
 
       const tweetData = await tweetResponse.json()
 
-      const userResponse = await fetch(`http://localhost:3000/api/users/${tweetData.authorId}`, {
+      const userResponse = await fetch(`/api/users/${tweetData.authorId}`, {
         method: "GET",
       })
 

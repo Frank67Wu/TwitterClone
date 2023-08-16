@@ -35,7 +35,7 @@ export default function Signup() {
         var raw = JSON.stringify({
             "userId": userId
         });
-        const res = await fetch("http://localhost:3000/api/auth", {
+        const res = await fetch("/api/auth", {
             method: 'POST',
             headers: myHeaders,
             body: raw,
@@ -75,7 +75,7 @@ export default function Signup() {
             "password": password
           });
 
-        const res = await fetch(`http://localhost:3000/api/users`, 
+        const res = await fetch(`/api/users`, 
         {
             method: "POST",
             headers: myHeaders,

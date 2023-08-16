@@ -16,8 +16,6 @@ export async function POST(req : NextRequest) {
             where: {sessionToken : cookie},
         });
 
-        console.log(token)
-
         if (token && Date.now() > token?.expires.getTime()) {
             prisma.session.delete({
                 where : {sessionToken : cookie}
@@ -37,8 +35,6 @@ export async function POST(req : NextRequest) {
         }
 
     } catch (error: any) {
-
-        console.log(error)
 
         return NextResponse.json(
             { error: "" },

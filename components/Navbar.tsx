@@ -19,11 +19,10 @@ export function Navbar() {
 
   async function LogOut() {
     
-    const res = await fetch('http://localhost:3000/api/auth/signin', {
+    const res = await fetch('/api/auth/signin', {
       method: "DELETE"
     })
 
-    console.log(res.status)
     localStorage.removeItem('username')
     localStorage.removeItem('userid')
     localStorage.removeItem('userHandle')

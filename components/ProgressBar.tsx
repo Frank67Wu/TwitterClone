@@ -9,7 +9,6 @@ export default function ProgressBar({className} : {className? : string}) {
     useEffect(() => {
     const interval = setInterval(() => {
       setCounter((counter: number) => {
-        console.log(counter)
         if (counter < 448) {
             return counter + 4
         }

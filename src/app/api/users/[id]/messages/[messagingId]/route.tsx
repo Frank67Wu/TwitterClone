@@ -12,7 +12,6 @@ export async function GET(req: NextRequest, {params}: {params: {id: string, mess
     const messagingId = params.messagingId
 
     if (messagerId ==  messagingId) {
-        console.log("same")
         return
     }
     
@@ -34,9 +33,7 @@ export async function GET(req: NextRequest, {params}: {params: {id: string, mess
       });
 
     } catch (error: any) {
-
-        console.log(error)
-
+        
         return NextResponse.json(
             { error: "Failed to get messages" },
             {
@@ -60,8 +57,6 @@ export async function POST(req: NextRequest, {params}: {params: {id: string, mes
     if (messagerId ==  messagingId) {
         return
     }
-
-    console.log(json.content)
 
     const message = await prisma.message.create({
         data : {
@@ -90,8 +85,6 @@ export async function POST(req: NextRequest, {params}: {params: {id: string, mes
       });
 
     } catch (error: any) {
-
-        console.log(error)
 
         return NextResponse.json(
             { error: "Failed to message user" },

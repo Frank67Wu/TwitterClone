@@ -34,7 +34,7 @@ export default function Home() {
   }
 
   async function GrabUserInfo() {
-    const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
+    const response = await fetch(`/api/users/${userId}`, {
       method: "GET",
     })
 
@@ -53,24 +53,23 @@ export default function Home() {
   };
 
   useEffect(() => {
-    setUserId(localStorage.getItem("userId"))
+    setUserId(localStorage.getItem("userid"))
   },[])
 
   useEffect(() => {
     if (userId) {
     GrabUserInfo()
     }
-  }, [forYou])
+  }, [userId])
 
   useEffect(()=>{
-    if (following) {
+    if (following && userId) {
     GrabTweets()
     }
-  },[following])
+  },[following, forYou])
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    console.log(window)
     return () => window.removeEventListener('scroll', handleScroll);
   }, [loading]);
 
@@ -87,7 +86,7 @@ export default function Home() {
 
   async function GrabTweets() {
 
-    const url = forYou ? `http://localhost:3000/api/tweets?page=${currentPage}&limit=6` : `http://localhost:3000/api/users/${userId}/following/tweets?page=${currentPage}&limit=6`
+    const url = forYou ? `/api/tweets?page=${currentPage}&limit=6` : `/api/users/${userId}/following/tweets?page=${currentPage}&limit=6`
 
     setLoading(true)
 
@@ -98,7 +97,7 @@ export default function Home() {
     const data = await response.json()
 
     for (const tweet of data) {
-      const userResponse = await fetch(`http://localhost:3000/api/users/${tweet.authorId}`, {
+      const userResponse = await fetch(`/api/users/${tweet.authorId}`, {
           method: "GET"
         })
 

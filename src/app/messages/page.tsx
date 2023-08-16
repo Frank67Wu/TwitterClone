@@ -55,8 +55,7 @@ export default function Message() {
   }
 
   async function FindUser() {
-    console.log(searchValue)
-    const res = await fetch(`http://localhost:3000/api/users/${searchValue}`,
+    const res = await fetch(`/api/users/${searchValue}`,
     {
       method: "GET"
     })
@@ -71,7 +70,6 @@ export default function Message() {
  
 
     const data = await res.json()
-    console.log(data)
     const user = {id : data.id, username: data.username, userHandle : data.userHandle }
 
     if (data.id != userId) {
@@ -88,7 +86,7 @@ export default function Message() {
       "content": content
     });
 
-    const res = await fetch(`http://localhost:3000/api/users/${userId}/messages/${currentlyMessaging?.id}`, {
+    const res = await fetch(`/api/users/${userId}/messages/${currentlyMessaging?.id}`, {
       method: 'POST',
       headers: myHeaders,
       body: raw,
@@ -104,7 +102,7 @@ export default function Message() {
 
   async function GetRecentMessages() {
       setLoading(true)
-      const res = await fetch(`http://localhost:3000/api/users/${userId}/messages`, {
+      const res = await fetch(`/api/users/${userId}/messages`, {
         method: "GET"
       })
 
@@ -129,7 +127,7 @@ export default function Message() {
 
   async function getMessages() {
 
-    const res = await fetch(`http://localhost:3000/api/users/${userId}/messages/${currentlyMessaging?.id}`, {
+    const res = await fetch(`/api/users/${userId}/messages/${currentlyMessaging?.id}`, {
       method: "GET"
     })
 

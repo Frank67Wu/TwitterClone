@@ -22,14 +22,13 @@ export function Tweet({className} : TweetProps) {
         if (inputValue.length == 0 || inputValue.length > 256) {
             return
         }
-        console.log(localStorage.getItem('userid'))
         setRenderProgressBar(true)
         
         const data = {
                 content: inputValue, 
                 author: { connect: { id: localStorage.getItem('userid')} }}
 
-        const response = await fetch("http://localhost:3000/api/tweets", {
+        const response = await fetch("/api/tweets", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

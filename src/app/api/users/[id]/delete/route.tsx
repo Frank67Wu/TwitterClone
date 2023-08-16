@@ -8,8 +8,6 @@ export async function DELETE(req: NextRequest, {params}: {params: {id: string}})
 
     try {
 
-    console.log(params)
-
     const id = params.id
     
     const deletedUser = await prisma.user.delete({

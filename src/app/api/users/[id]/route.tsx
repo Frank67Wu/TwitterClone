@@ -43,8 +43,6 @@ export async function GET(req: NextRequest, {params}: {params: {id: string}}) {
 
     } catch (error: any) {
 
-      console.log(error)
-
         return NextResponse.json(
             { error: "Failed to find user" },
             {
