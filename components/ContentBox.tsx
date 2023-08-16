@@ -1,5 +1,3 @@
-import Link from "next/link"
-import { ProfilePicture } from "./ProfilePicture"
 import { ShowMore } from "./ShowMore"
 
 type ContentBoxProps = {

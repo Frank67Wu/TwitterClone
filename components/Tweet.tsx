@@ -1,9 +1,8 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "./Button";
 import { ProfilePicture } from "./ProfilePicture";
-import { cookies } from "next/dist/client/components/headers";
 import ProgressBar from "./ProgressBar";
 
 type TweetProps = {

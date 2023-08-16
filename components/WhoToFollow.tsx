@@ -1,6 +1,5 @@
 import { ContentBox } from "./ContentBox";
 import { ProfilePreview } from "./ProfilePreview";
-import { ShowMore } from "./ShowMore";
 
 type WhoToFollowProps = {
     className? : string

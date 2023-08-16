@@ -1,10 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { MessagePreview } from "../../../components/MessagePreview";
-import { MessageTextBox } from "../../../components/MessageTextBox";
 import { Navbar } from "../../../components/Navbar";
-import { ProfilePicture } from "../../../components/ProfilePicture";
 import { SearchBar } from "../../../components/SearchBar";
 
 

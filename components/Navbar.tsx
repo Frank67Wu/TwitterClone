@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Button } from './Button'
 import { ProfilePicture } from './ProfilePicture'
-import { redirect } from 'next/navigation'
 
 export function Navbar() {
   const [userId, setUserId] = useState<string | null>("")

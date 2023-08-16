@@ -1,5 +1,3 @@
-import { ProfilePicture } from "./ProfilePicture"
-
 type SearchBarProps = {
     placeholderText : string
     className? : string

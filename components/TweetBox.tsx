@@ -1,4 +1,3 @@
-import { cookies } from "next/dist/client/components/headers";
 import { LikeButton } from "./LikeButton";
 import { ProfilePicture } from "./ProfilePicture";
 import { FollowingButton } from "./FollowingButton";

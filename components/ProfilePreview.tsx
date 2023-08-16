@@ -1,4 +1,3 @@
-import { Button } from "./Button";
 import { FollowButton } from "./FollowButton";
 import { ProfilePicture } from "./ProfilePicture";
 

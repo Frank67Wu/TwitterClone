@@ -1,6 +1,6 @@
 'use client'
 
-import { EffectCallback, use, useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { ProfilePicture } from "./ProfilePicture"
 import { TweetBox } from "./TweetBox"
 
@@ -104,7 +104,7 @@ export function ProfileFull({func} : funcProp) {
       const upperBound = Math.min(page * 6, tweetInfo.length)
       
       for (let i = lowerBound ;  i < upperBound; i++) {
-      const tweetResponse = await fetch(`/api/tweets/${tweetInfo[i].id}`, {
+      const tweetResponse = await fetch(`http://localhost:3000/api/tweets/${tweetInfo[i].id}`, {
         method: "GET",
       })
 
