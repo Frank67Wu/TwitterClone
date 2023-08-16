@@ -1,3 +1,5 @@
+import React from 'react'
+
 type TrendingBoxProps = {
     gray?: boolean
     className? : string

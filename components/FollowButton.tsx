@@ -1,4 +1,6 @@
 import { Button } from "./Button";
+import React from 'react'
+
 type FollowButtonProps = {
     className? : string
 }

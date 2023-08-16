@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { ProfilePicture } from "./ProfilePicture"
 import { TweetBox } from "./TweetBox"
+import React from 'react'
 
 interface User {
   username : string

@@ -1,3 +1,5 @@
+import React from 'react'
+
 export function TopicBox() {
     return (
     <div className="flex border-b">

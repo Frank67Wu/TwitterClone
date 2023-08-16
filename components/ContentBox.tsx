@@ -1,4 +1,5 @@
 import { ShowMore } from "./ShowMore"
+import React from 'react'
 
 type ContentBoxProps = {
     title: string

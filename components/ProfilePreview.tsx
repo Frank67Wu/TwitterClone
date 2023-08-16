@@ -1,5 +1,6 @@
 import { FollowButton } from "./FollowButton";
 import { ProfilePicture } from "./ProfilePicture";
+import React from 'react'
 
 export function ProfilePreview() {
     return (

@@ -1,3 +1,5 @@
+import React from 'react'
+
 type MessageTextBoxProps = {
     self: boolean
     content : string

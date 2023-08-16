@@ -1,4 +1,5 @@
 import type { ButtonHTMLAttributes, DetailedHTMLProps } from "react"
+import React from 'react'
 
 type ButtonProps = {
     small?: boolean

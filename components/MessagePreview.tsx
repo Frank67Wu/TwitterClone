@@ -1,4 +1,5 @@
 import { ProfilePicture } from "./ProfilePicture";
+import React from 'react'
 
 type MessagePreviewProps = { 
     className? : string

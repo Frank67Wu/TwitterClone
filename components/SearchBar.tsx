@@ -1,3 +1,5 @@
+import React from 'react'
+
 type SearchBarProps = {
     placeholderText : string
     className? : string

@@ -1,3 +1,5 @@
+import React from 'react'
+
 type ProfilePictureProps =  {
     small ? : boolean
     className? : string
