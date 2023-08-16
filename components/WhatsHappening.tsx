@@ -1,4 +1,6 @@
 import { ContentBox } from "./ContentBox";
+import React from 'react'
+
 
 type WhatsHappeningProps = {
     trending: JSX.Element[]

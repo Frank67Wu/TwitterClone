@@ -3,6 +3,8 @@ import { ProfilePicture } from "./ProfilePicture";
 import { FollowingButton } from "./FollowingButton";
 import { BookmarkedButton } from "./BookmarkButton";
 import { ViewButton } from "./ViewButton";
+import React from 'react'
+
 
 interface tweetData {
     id : string

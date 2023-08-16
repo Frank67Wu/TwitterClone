@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Button } from "./Button";
 import { ProfilePicture } from "./ProfilePicture";
 import ProgressBar from "./ProgressBar";
+import React from 'react'
+
 
 type TweetProps = {
     className? : string

@@ -6,6 +6,8 @@ import { TrendingBox } from "../../../components/TrendingBox";
 import { WhoToFollow } from "../../../components/WhoToFollow";
 import { TopicBox } from "../../../components/TopicBox";
 import { useState } from "react";
+import React from 'react'
+
 
 export default function Explore() {
 

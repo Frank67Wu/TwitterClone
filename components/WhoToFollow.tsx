@@ -1,5 +1,7 @@
 import { ContentBox } from "./ContentBox";
 import { ProfilePreview } from "./ProfilePreview";
+import React from 'react'
+
 
 type WhoToFollowProps = {
     className? : string

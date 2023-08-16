@@ -7,6 +7,8 @@ import { TrendingBox } from "../../../components/TrendingBox"
 import { TweetBox } from "../../../components/TweetBox"
 import { WhatsHappening } from "../../../components/WhatsHappening"
 import { WhoToFollow } from "../../../components/WhoToFollow"
+import React from 'react'
+
 
 interface TweetData {
   id: string

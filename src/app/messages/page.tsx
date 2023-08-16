@@ -8,6 +8,8 @@ import { Navbar } from "../../../components/Navbar";
 import { ProfilePicture } from "../../../components/ProfilePicture";
 import { SearchBar } from "../../../components/SearchBar";
 import {ErrorMessage} from "../../../components/ErrorMessage";
+import React from 'react'
+
 
 
 interface User {

@@ -8,6 +8,8 @@ import { WhatsHappening } from "../../components/WhatsHappening"
 import { TweetBox } from "../../components/TweetBox"
 import { TrendingBox } from "../../components/TrendingBox"
 import { useEffect, useState } from "react"
+import React from 'react'
+
 
 interface TweetData {
   id: string

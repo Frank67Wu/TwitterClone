@@ -7,6 +7,8 @@ import { SearchBar } from "../../../components/SearchBar";
 import { TrendingBox } from "../../../components/TrendingBox";
 import { WhatsHappening } from "../../../components/WhatsHappening";
 import { WhoToFollow } from "../../../components/WhoToFollow";
+import React from 'react'
+
 
 
 
