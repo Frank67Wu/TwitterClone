@@ -67,10 +67,10 @@ export function TweetBox({data, className, username, userHandle, selfId, followi
             <div className="justify-between -left-2 relative flex flex-grow">
 
             <FollowingButton updateFollowing={updateFollowing} following={following}/>
-            {/* @ts-ignore  */}
-            <BookmarkedButton updateBookmarks={updateBookmarks} numberOf={data.bookmarkedById.length} bookmarked={data.bookmarkedById.includes(selfId)}/>
-            {/* @ts-ignore  */}
-            <LikeButton updateLikes={updateLikes} numberOf={data.likedById.length} liked={data.likedById.includes(selfId)}/>
+
+            <BookmarkedButton updateBookmarks={updateBookmarks} numberOf={data.bookmarkedById.length} bookmarked={selfId ? data.bookmarkedById.includes(selfId) : false}/>
+
+            <LikeButton updateLikes={updateLikes} numberOf={data.likedById.length} liked={selfId ? data.likedById.includes(selfId) : false}/>
 
             <ViewButton/>
 
