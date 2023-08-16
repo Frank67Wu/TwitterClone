@@ -65,7 +65,7 @@ export default function Settings() {
       <div className="w-[306px] max-w-[306px] bg-white bg-opacity-90 z-40 border-r">
 
           <h1 className="font-bold text-lg pl-2 pt-1 w-[306px] max-w-[306px] [bg-gray-300">Settings</h1>
-          <SearchBar inputValue={searchValue} onChange={onchange} small={true} className="mx-2 mt-4" width={"w-[236px]"} placeholderText="Search Settings"/>
+          <SearchBar inputValue={searchValue} onChange={onChange} small={true} className="mx-2 mt-4" width={"w-[236px]"} placeholderText="Search Settings"/>
 
       </div>
 

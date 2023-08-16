@@ -115,7 +115,8 @@ export default function Login() {
                 <button onClick={(e)=>{e.preventDefault()}} className="rounded-full py-2 text-black font-bold mt-6 border border-black"> Forgot password? </button>
 
                 <div className="flex mt-16">
-                <h1 className="text-gray-500">Don't have an account?</h1>
+                <h1 className="text-gray-500">Don&apos;t have an account?</h1>
+                <h1 className="text-gray-500">Don have an account?</h1>
                 <Link className="ml-1 text-blue-500 mb-20" href={"/signup"}>Sign Up</Link>
                 </div>
 

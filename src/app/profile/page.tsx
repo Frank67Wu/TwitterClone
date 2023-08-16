@@ -12,7 +12,7 @@ import React from 'react'
 
 
 
-export default function Home() {
+export default function Profile() {
 
   const [inputValue, setInputValue] = useState("")
   let ref = useRef(null)
@@ -45,7 +45,7 @@ export default function Home() {
 
     <div className="mx-4 w-72 min-w-72 h-screen z-40">
       <div className="fixed">
-        <SearchBar inputValue={inputValue} onChange={onchange} width={"w-60"} className={"mt-1"} placeholderText="Search Twitter"/>
+        <SearchBar inputValue={inputValue} onChange={OnChange} width={"w-60"} className={"mt-1"} placeholderText="Search Twitter"/>
 
         <WhoToFollow className="mt-2"/>
 
@@ -55,12 +55,7 @@ export default function Home() {
       </div>
     </div>
 
-    
-
     </div>
-
-
-
 
   )
 }
