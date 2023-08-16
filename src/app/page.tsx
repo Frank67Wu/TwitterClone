@@ -9,6 +9,7 @@ import { TweetBox } from "../../components/TweetBox"
 import { TrendingBox } from "../../components/TrendingBox"
 import { useEffect, useState } from "react"
 import React from 'react'
+import { useRouter } from "next/navigation"
 
 
 interface TweetData {
@@ -30,6 +31,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [forYou, setForYou] = useState(true)
   const [following, setFollowing] = useState<string[]>([])
+  const router = useRouter()
 
   function OnChange(val : any) {
     setInputValue(val)
@@ -55,6 +57,10 @@ export default function Home() {
   };
 
   useEffect(() => {
+    const x = localStorage.getItem("userid")
+    if (! x ) {
+      router.push("/login")
+    }
     setUserId(localStorage.getItem("userid"))
   },[])
 
